@@ -18,6 +18,7 @@ Implemented functionality
 The Index page displays a list of departments, including their images and names. Users can filter departments by name, add new departments, edit or delete existing ones, and click on a department's name to view its details and all doctors employed in that department.
 
 The administrator has access to all the views and actions described above.
+
 2. Doctors
 - View all doctors, with the option to filter by first name, last name, and specialization.
 - Add new doctors, edit existing doctors, delete doctors, and view doctor details.
@@ -28,6 +29,7 @@ The administrator has access to all the views and actions described above.
 The Index page displays a list of doctors, including their profile images, names, and specializations. Users can filter doctors by first name, last name, or specialization, add new doctors, edit or delete existing doctors, and click on a doctor's name to view their details and all patients they have examined.
 
 The administrator has access to all the views and actions described above.
+
 3. Patients
 - View all patients, with the option to filter by first name and last name.
 - Add new patients, edit existing patients, delete patients, and view patient details.
