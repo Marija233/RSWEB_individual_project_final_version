@@ -1,123 +1,141 @@
-RSWEB – Самостоен проект: MVCHospital(Heights of Health Clinic)
+RSWEB – Individual Project: MVCHospital (Heights of Health Clinic)
+Database structure and relationships
+The database consists of four tables: Department, Doctor, Patient, and Appointment.
 
-Базата се состои од четири табели: Department, Doctor, Patient и Аppointment. 
+Relationships between tables:
+- Each Doctor is assigned to a Department. This foreign key is not nullable because every doctor working at the hospital must belong to a specific department. The Department–Doctor relationship is one-to-many (1:M).
+- Each Patient may be assigned to a Department if they are hospitalized. However, hospitalization is optional, so the foreign key is nullable. The Department–Patient relationship is one-to-many (1:M).
+- Appointment is a junction table representing a many-to-many (M:M) relationship between Doctor and Patient. Each Appointment records which Patient was examined and which Doctor performed the examination. One Doctor can examine multiple Patients, and one Patient can have appointments with multiple Doctors.
+Implemented functionality
+1. Departments
+- View all departments, with the option to search and filter by department name.
+- Add new departments, edit existing departments, delete departments, and view department details.
+- Upload, store, display, modify, and delete an image for each department.
+- View doctors assigned to each department.
+- By clicking View Doctors, users can see all doctors employed in a particular department, including their information.
+- By clicking View Patients for a specific doctor, users can see all patients examined by that doctor, together with their attributes.
+- Users can also access the medical report for each patient and view all its details.
+The Index page displays a list of departments, including their images and names. Users can filter departments by name, add new departments, edit or delete existing ones, and click on a department's name to view its details and all doctors employed in that department.
 
--релации помеѓу табелите:
-За секој Doctor се знае и одделот во кој работи (не е nullable овој надворешен клуч – секој доктор во болницата мора да работи во одреден оддел, Department:Doctor се во 1:m релација). Додека пак, за Patient се знае на кој оддел е хоспитализиран (доколку е хоспитализиран, може да биде, но не мора – затоа е nullable foreign key, (nullable Department:Patient 1:m релација)). Appointment претставува слаб ентитет(junction табела), односно М:М релација помеѓу Doctor и Patient, за секој Appointment се знае кој Patient е прегледан, и кој Doctor го прегледал(еден Doctor може да прегледа повеќе Patients, a еден Patient може да отиде на прегледи кај повеќе Doctors). 
+The administrator has access to all the views and actions described above.
+2. Doctors
+- View all doctors, with the option to filter by first name, last name, and specialization.
+- Add new doctors, edit existing doctors, delete doctors, and view doctor details.
+- Upload, store, display, modify, and delete a profile image for each doctor.
+- View patients assigned to each doctor.
+- By clicking View Patients, users can see all patients examined by a particular doctor, together with their attributes.
+- Users can also access and view the complete medical report for each patient.
+The Index page displays a list of doctors, including their profile images, names, and specializations. Users can filter doctors by first name, last name, or specialization, add new doctors, edit or delete existing doctors, and click on a doctor's name to view their details and all patients they have examined.
 
+The administrator has access to all the views and actions described above.
+3. Patients
+- View all patients, with the option to filter by first name and last name.
+- Add new patients, edit existing patients, delete patients, and view patient details.
+- View the doctors associated with each patient, including their respective attributes.
+- Access the medical report for each appointment a patient has had with a doctor.
+- By clicking on a medical report, users can view all its details.
+Unlike the Departments and Doctors sections, the Patients Index page displays a list of patients together with all their attributes. Users can filter patients by first name and last name, add new patients, edit existing patient information, delete patients, and view the doctors associated with each patient.
 
--овозможено е:
+The administrator has access to all the views and actions described above.
+4. Appointments
+- View all appointments, with the option to filter by the patient's first and last name.
+- Add new appointments, edit existing appointments, and delete appointments.
+- Upload, store, and play an audio file containing the medical report for each appointment. Existing audio files can also be modified or deleted.
+- The Index page displays a list of appointments, including the doctor who performed the examination, the patient who was examined, and the appointment date.
+- Users can add new appointments, edit or delete existing appointments, filter appointments by the patient's first and last name, and access the detailed medical report for each appointment.
+- By opening a medical report, users can view all appointment attributes, including those not displayed on the Index page.
+The administrator has access to all the views and actions described above.
 
--Дизајн на целата страна, имплементирани разни CSS стилови и скрипта. 
+User roles and functionalities
+The application supports three different user roles: Administrator, Doctor, and Patient.
 
--оддели- :
+Each role has specific permissions and access to different application functionalities.
+1. Administrator functionalities
+The administrator has full access to the application and can:
+- View all doctors, patients, departments, and appointments.
+- Add, edit, and delete doctors, patients, and departments.
+- View all doctors working in a particular department.
+- View all patients assigned to each doctor within a department.
+- Access the list of patients through a particular doctor's profile.
+- Access the list of doctors associated with a particular patient.
+- Add, edit, and delete appointments.
+2. Doctor functionalities
+Each doctor has access only to their own patients.
 
-•	Преглед на сите оддели, со можности за пребарување(филтрирање) по име,
+Doctors can:
+- View a list of their patients, including all relevant patient attributes.
+- Access the detailed medical report for each appointment associated with their patients.
+- View all attributes included in each medical report.
+- Return to their patient list after viewing a medical report.
+Editing medical information:
 
-•	Погледи/акции за додавање на нов оддел, модификација, бришење и детали на постоечки оддели;
+- For outpatients (patients who are not hospitalized), doctors can enter and edit the following information for an appointment:
+- Examination
+- Diagnosis
+- Therapy
+- For hospitalized patients, doctors can enter and edit:
+- Examination
+- Diagnosis
+- Therapy
+- Appointment date
+Doctors can modify the appointment date because these patients are receiving ongoing hospital treatment. Other patient-related fields can be viewed but cannot be modified.
 
-•	За секој оддел има можност да се прикачи, зачува и прикаже слика, исто може и да се модифицира и избрише.
+After entering or editing the information, doctors can return to their patient list.
 
-•	Преглед на доктори по оддел, со клик на View Doctors за секој доктор вработен во одделот имаме преглед на неговите полиња и можност за преглед на пациенти по доктор, со клик на View Patients, имаме преглед на сите пациенти на еден доктор со соодветните нивни атрибути и можност за преглед на медицинскиот извештај за секој пациент, со клик на него го гледаме целосниот извештај со сите негови атрибути.
+If they decide not to make any changes, they can also return by clicking Back to List of Patients by Doctor.
 
-•	во Index е прегледот на листа од оддели со приказ на нивни соодветни слики,име на секој оддел, можност да се филтрираат одделите по име, можност за додавање на нов оддел, модификација на секој оддел, бришење , додека пак со клик на името на секој оддел се прикажуваат деталите за соодветниот оддел – атрибутите на одделот и приказ на сите доктори вработени во одделот
+Any changes made to a medical report are reflected when the doctor opens that report again.
 
-*администраторот има пристап до сите горенаведени погледи/акции
+In summary, doctors can:
+- View all their assigned patients.
+- Edit the permitted medical information for each patient.
+- Access the detailed medical report for each appointment.
+3. Patient functionalities
+Each patient has access only to their own doctors.
 
+Patients can:
+- View a list of all doctors who have examined them.
+- View the details and attributes of each doctor.
+- Access the detailed medical report for each appointment with a particular doctor.
+- View all attributes included in the medical report.
+- Return to their list of doctors after viewing a report.
+Editing medical information:
+- For each doctor who has examined them, patients can enter or modify the Symptoms field for a particular appointment.
+- All other fields can be viewed but cannot be modified.
+After entering or editing the information, patients can return to their list of doctors.
 
--доктори- :
+If they decide not to make any changes, they can click Back to List of Doctors by Patient.
 
+Any changes made to the Symptoms field are reflected in the corresponding medical report.
 
-•	Преглед на сите доктори, со можности за пребарување(филтрирање) по име и презиме и пребарување по специјализација
+In summary, patients can:
+- View all doctors who have examined them.
+- Edit the Symptoms field for each appointment.
+- Access the detailed medical report for each of their appointments.
 
-•	Погледи/акции за додавање на нов доктор, модификација, бришење и детали на постоечки оддели;
+Authentication and user account management
+The application implements authentication and role-based access control for all three user types: Administrator, Doctor, and Patient.
 
-•	За секој доктор има можност да се прикачи, зачува и прикаже слика, исто може и да се модифицира и избрише.
+Each user can log in using an email address and password.
 
-•	Преглед на пациенти по доктор , со клик на View Patients имаме преглед на сите пациенти на доктор, со соодветните нивни атрибути и можност за преглед на медицинскиот извештај за секој пациент, со клик на него го гледаме целосниот извештај со сите негови атрибути.
-
-•	Слично како кај оддели, во Index е прегледот на листа од доктори со приказ на нивни соодветни слики,нивното име,специјализација, можност да се филтрираат докторите по име и презиме исто така и можност да се филтираат по специјализација, можност за додавање на нов доктор, модификација на секој доктор, бришење , додека пак со клик на името на секој доктор се прикажуваат деталите за соодветниот доктор – атрибутите на докторот и приказ на сите пациенти кои ги прегледал даден доктор 
-
-*администраторот има пристап до сите горенаведени погледи/акции
-
-
--пациенти- :
-
-
-
-•	Преглед на сите пациенти, со можности за пребарување(филтрирање) по име и презиме,
-
-•	Погледи/акции за додавање на нов пациент, модификација, бришење и детали на постоечки пациенти;
-
-•	Преглед на доктори по пациент , со нивните соодветни атрибути и можност за преглед на мецисникиот извештај за секој преглед направен од некој од докторите на соодветниот пациент, со клик на него се гледа целосниот извештај со сите негови атрибути.
-
-•	За разлика од пациенти и доктори, во Index делот на пациенти се наоѓа листа од пациенти, сите атрибути за секој пациент, можност да се филтрираат по име и презиме, можност за додавање нов пациент, модификација на постоечки пациент, бришење и можност за приказ на доктори по пациент
-
-*администраторот има пристап до сите горенаведени погледи/акции
-
-
--прегледи- :
-
-•Преглед на сите прегледи, со можности за пребарување(филтрирање) по име и презиме на пациент,
-
-•	Погледи/акции за додавање на нов преглед, модификација, бришење на постоечки прегледи.
+Administrator permissions:
+- Register new users.
+- Update existing user profiles.
+- Delete existing user accounts.
+Doctor and Patient permissions:
+- Change their own account passwords.
+- Access only the functionalities permitted by their respective roles.
+All users must be authenticated (logged in) to access the application functionalities described above.
+Test login credentials
+The following credentials can be used to test the application with different user roles.
+Administrator
+- Email: admin@mvchospital.com
+- Password: Admin123
   
-• За секој преглед има можност да се прикачи, зачува и прикаже аудио од медицинскиoт извештај за прегледот, исто така може и да се модифицира и избрише.  
-
-•	Во Index има преглед на листа од прегледи , докторот кој го извршил прегледот и пациентот врз кој е извршен прегледот и датумот на прегледот, можност за додавање на нов преглед, модификација на секој преглед, бришење на прегледи, можност за филтрирање(пребарување) по име и презиме на пациент и можност за преглед на детален медицински извештај за секој преглед, со клик на него имаме прегед на сите атрибути на соодветниот Appointment и на оние кои не се наведени во Index.
-
-
-*администраторот има пристап до сите горенаведени погледи/акции
-
-
-
-
-ФУНКЦИОНАЛНОСТИ:
-
-
-
-Администраторски функционалности:
-•	Има увид на сите доктори, пациенти, оддели ,прегледо
-•	Може да додава,модификува и брише доктори,пациенти, оддели 
-•	За секој оддел, има увид на сите доктори кои работат во него, и за секој вработен доктор во одделот има увид на сите пациенти кои има даден доктор
-•	Исто така и преку секој доктор може да пристапи до листата  на сите пациенти кои ги има даден доктор 
-•	И преку секој пациент има увид на сите доктори по пациент
-•	Може да додаде , модифицира преглед
-•	Исто така, може и да брише преглед
-
-
-Докторски функционалности:
-•	Секој доктор има увид САМО на своите пациенти (листа на пациенти по доктор), со тоа што за секој пациент се наведени сите негови атрибути и исто така за секој пациент може да се види и деталниот медицински извештај за прегледот кој е направен, со сите негови атрибути (по гледање на извештајот , докторот може да се врати на листата со неговите пациенти)
-•	За нехоспитализираните пациенти, докторот може да внесе examination, diagnosis и therapy
-•	За пациент кој е хоспитализиран, докторот за даден преглед може да внесе examination, diagnosis, therapy и date ( со тоа што е овозможено внесување/промена на датумот на прегледот од страна на докторот, (а не само од страна на администраторот како кај нехоспитализираните пациенти),бидејќи овие пациенти се во болничко лекување,а останатите полиња може да ги види , но не може да ги менува)
-•	По внесување/едитирање на овие податоци, докторот се враќа кон листата на своите пациенти,(и доколку не одлучи да внесе/едитира ништо од податоците, може да се врати кон листата на пациенти со клик на Back to List of Patients by Doctor) и со клик на медицинскиот извештај кај секој пациент, доколку е направена промена, тоа може да се види.По негово гледање, докторот може да се врати на листата на неговите пациенти со клик на Back to List of Patients by Doctor.
-(негови функционалности се да има преглед на сите негови пациенти, да може да ги едитира горенаведените полиња на секој соодветен пациент и да има пристап до медицинскиот извештај за секој преглед на соодветниот пациент)
-
-
-
-
-Функционалности на пациент:
-•	Секој пациент има увид САМО на своите доктори (листа на доктори по пациент), со тоа што за секој доктор се наведени сите негови атрибути и исто така за секој доктор може да се види и деталниот медицински извештај за прегледот кој го направил врз пациент, со сите негови атрибути (по гледање на извештајот , пациентот може да се врати на листата со неговите доктори)
-•	За секој доктор кој го прегледал може за даден преглед да внесе / промени symptoms, останатите полиња може да ги види но не и да ги менува
-•	По внесување/едитирање на овие податоци, пациентот се враќа кон листата на своите доктори,(и доколку не одлучи да внесе/едитира ништо од податоците, може да се врати кон листата на доктори со клик на Back to List of Doctors by Patient), со клик на медицинскиот извештај кај секој доктор, доколку е направена промена, тоа може да се види.(потоа може да се врати на неговата листа на доктори со клик на Back to List of Doctors by Patient ) .
-(негови функционалности се да има преглед на сите негови доктори кои го прегледале. да може да го едитира полето symptoms за секој преглед и да има пристап до медицинскиот извештај за секој свој преглед) 
-
-
-
-
-
-Во врска со улогите, овозможено е секој корисник, дали е пациент, доктор или администратор да се најавува со е-маил адреса и лозинка. Администраторот може да регистрира нови корисници, и да ги апдејтира и брише профилите на веќе постоечките корисници, додека пак пациентот и докторот можат само да си ги променат лозинките во соодветните профили. Администраторот, пациентот и докторот за да ги извршуваат горенаведените функционалности  мора да бидат најавени, и имаат пристап кон нив
-
-
-* login details за Admin:
-admin@mvchospital.com
-* password:
-Admin123
-
-* za eden od doktorite:
-* annetaylor@mvchospital.com
-* Anne1234
-
-* za eden od pacientite:
-* annasmith@mvchospital.com
-* Anna1234
+  Doctor
+- Email: annetaylor@mvchospital.com
+- Password: Anne1234
+  
+  Patient
+- Email: annasmith@mvchospital.com
+- Password: Anna1234
