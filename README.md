@@ -1,4 +1,5 @@
 RSWEB – Individual Project: MVCHospital (Heights of Health Clinic)
+Developed an ASP.NET MVC application featuring relational database management, authentication, role-based access control, CRUD operations, and custom frontend styling using HTML, CSS, and JavaScript.
 Database structure and relationships
 The database consists of four tables: Department, Doctor, Patient, and Appointment.
 
